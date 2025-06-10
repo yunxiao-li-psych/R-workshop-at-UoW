@@ -86,11 +86,11 @@ hdi_es <- hdi(posterior_es)
 fig_post_es <- ggplot(data.frame(es = posterior_es), aes(x = es, y = after_stat(density))) +
   geom_histogram(fill = 'skyblue', color = 'skyblue') +
   annotate('segment', x = hdi_es[1], xend = hdi_es[2], y = 0, yend = 0,colour = "black", linewidth = 2)+
-  annotate('segment', x = -0.2, xend = 0.2, y = 0, yend = 0, colour = "red", linewidth = 2, alpha = 0.5)+
-  annotate('text', x = hdi_es[1], y = 1, label = round(hdi_es[1], 2)) +
-  annotate('text', x = hdi_es[2], y = 1, label = round(hdi_es[2], 2)) +
-  annotate('text', x = -0.22, y = 0.5, label = -0.2, color = 'red') +
-  annotate('text', x = 0.22, y = 0.5, label = 0.2, color = 'red') +
+  annotate('segment', x = 0, xend = 0.2, y = 0, yend = 0, colour = "red", linewidth = 2, alpha = 0.5)+
+  annotate('text', x = hdi_es[1], y = 1.5, label = round(hdi_es[1], 2)) +
+  annotate('text', x = hdi_es[2], y = 1.5, label = round(hdi_es[2], 2)) +
+  annotate('text', x = -0.01, y = 0.5, label = 0, color = 'red') +
+  annotate('text', x = 0.21, y = 0.5, label = 0.2, color = 'red') +
   labs(x = 'Effect size') +
   theme_minimal()
 
