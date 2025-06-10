@@ -17,12 +17,12 @@ fig_beta
 
 
 # Hello world for Stan ---------
-options(mc.cores=4)
+
 hello_world <- stan_model('hello_world.stan') # compile the .stan file
-sampling(hello_world, chain = 1, iter = 2, algorithm = "Fixed_param")
+sampling(hello_world, chain = 1, iter = 1, algorithm = "Fixed_param")
 
 # Bayesian estimation using Stan -----------
-coin <- stan_model(stan_file = 'coin.stan')
+coin <- stan_model('coin.stan')
 
 obs <- c(1, 0, 1, 1, 0, 1)
 
@@ -32,7 +32,7 @@ data_list <- list(y = obs,
 fit <- sampling(coin,
                 data=data_list,
                 chains = 4,
-                parallel_chains = 4,
+                cores = 4,
                 iter = 2000,
                 warmup = 1000)
 
