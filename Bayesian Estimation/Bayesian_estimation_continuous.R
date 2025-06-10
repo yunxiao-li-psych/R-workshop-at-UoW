@@ -42,6 +42,19 @@ print(fit) # learn more about the lp__: https://www.jax.org/news-and-insights/ja
 
 samples <- as.array(fit)
 
+# # Take the first 6 samples
+# sub_samples <- samples[1:6, 1, 1]
+# 
+# fig_trace_step <- data.frame(theta = sub_samples, id = 1:6) %>%
+#   ggplot(aes(x = id, y = theta)) +
+#   geom_segment(aes(x = id[id], y = theta[id], xend = id[id+1], yend = theta[id+1]),
+#                arrow = arrow(length = unit(0.25, "cm")), color = "skyblue", linewidth = 0.5)+
+#   geom_point(shape = 16, size = 2) +
+#   labs(x = 'Iteration', y = expression(theta)) +
+#   scale_x_continuous(breaks = 1:6) +
+#   theme_minimal()
+
+
 fig_trace <- mcmc_trace(samples, pars = 'theta') +
   ylab(expression(theta)) +
   scale_y_continuous(breaks =seq(0, 1, by = 0.1))
