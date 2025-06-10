@@ -1,6 +1,6 @@
 # Read me
 
-This repository is for the R workshop at the University of Warwick in 13th June 2025. It consists of two topics: the basic operation of R and doing Bayesian inference in R and Stan.
+This repository is for the R workshop at the University of Warwick on 13th June 2025. It consists of two topics: the basic operation of R and doing Bayesian inference in R and Stan. To get started, simply click the green “Code” button in the top-right corner to download everything you need.
 
 ## Basic Operation of R
 This section introduces the basic functionality of R, preparing you for data visualization, analysis, and more advanced statistical tasks.
@@ -12,9 +12,9 @@ Download and install both R and RStudio. This video provides a step-by-step guid
 2. If you're using a departmental computer:
 Open the Software Center application on your computer and download RStudio directly from there.
 
-## Bayesian Inference
+## Bayesian Estimation and Inference
 
-This section is designed as a beginner-friendly introduction to Bayesian inference. We’ll cover the basics and aim to make everything as clear as possible. The topics include:
+This section is designed as a beginner-friendly introduction to Bayesian estimation and inference. We’ll cover the basics and aim to make everything as clear as possible. The topics include:
 - The Bayes Rule
 - The Bayesian estimation
 - Hypothesis tests via Bayesian estimation
