@@ -2,7 +2,6 @@ library(rstan)
 library(bayesplot)
 library(ggplot2)
 library(dplyr)
-library(cowplot)
 
 set.seed(2025)
 
@@ -15,7 +14,6 @@ fig_beta <- data.frame(theta = seq(0, 1, by=0.01), prior = dbeta(seq(0, 1, by=0.
   theme_minimal()
 fig_beta
 
-ggsave('images/continuous_coin_prior.png', plot = fig_beta, width = 10, height =10, units = 'cm')
 
 
 # Hello world for Stan ---------
@@ -67,7 +65,7 @@ fig_chain <- plot_grid(fig_trace, fig_hist, ncol = 2)
 
 # ..... Practice ......
 
-obs <- sample(c(0, 1), size = 50, replace = TRUE, prob = c(0.2, 0.8))
+obs_new <- sample(c(0, 1), size = 50, replace = TRUE, prob = c(0.2, 0.8))
 
 # complete the .stan file
 coin <- cmdstan_model(stan_file = 'coin.stan')
