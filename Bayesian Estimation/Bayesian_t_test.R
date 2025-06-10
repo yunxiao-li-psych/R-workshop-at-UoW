@@ -5,8 +5,6 @@ library(ggplot2)
 library(tidyr)
 
 set.seed(2025)
-data <- data.frame(protein = rnorm(50, 20, 1))
-write.csv(data, "energy_bar.csv", row.names = FALSE)
 
 data <- read.csv("energy_bar.csv")
 fig_hist <- ggplot(data, aes(x=protein)) +
@@ -14,11 +12,11 @@ fig_hist <- ggplot(data, aes(x=protein)) +
   theme_minimal()
 fig_hist
 
-ggsave("images/protein.png", plot = fig_hist, width = 10, height = 10, units = 'cm')
 
 # Frequentist t-test --------
 t_value <- (mean(data$protein) - 20) / (sd(data$protein)/sqrt(length(data$protein)))
 
+# Plot the student t distribution
 fig_t <- data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 49)) %>%
   ggplot(aes(x = x, y = y)) +
   geom_line() +
@@ -29,8 +27,6 @@ fig_t <- data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 
   geom_area(data = data.frame(x = seq(t_value, 3, by =0.01), y = dt(seq(t_value, 3, by =0.01), df = 49)),
             alpha = 0.4) +
   theme_minimal()
-
-ggsave("images/ttest.svg", plot = fig_t, width=10, height=10, units = 'cm')
 
 p_value <- pt(-1 * t_value, df = 49) + pt(t_value, df = 49, lower.tail = FALSE)
 
@@ -54,34 +50,22 @@ fig_sample <- data.frame(t = t_value) %>%
   geom_line(data = data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 49)),
             mapping = aes(x = x, y = y))
   
-  
-fig_sample
-
 
 # Bayesian estimation --------
 
-options(mc.cores=4)
 protein_model <- stan_model('protein.stan')
 data_list <- list(N = length(data$protein),
                   y = data$protein)
 
 fit <- sampling(protein_model, data = data_list,
-                chains = 4, iter = 4000, warmup = 2000)
+                chains = 4, iter = 4000, warmup = 2000, cores = 4)
 
 print(fit, pars = c('mu', 'sigma'))
 
-draw <- as.array(fit)
+samples <- as.array(fit)
 
-fig_trace <- mcmc_trace(draw, pars = c('mu', 'sigma'))
-# ggsave("images/protein_trace.png", plot = fig_trace, width = 20, height = 10, units = 'cm')
-
-fig_trace_es <- mcmc_trace(draw, pars = c('es')) +
-  labs(title = 'Effect size', y = NULL) +
-  theme(plot.title = element_text(hjust = 0.5))
-ggsave("images/protein_trace_es.png", plot = fig_trace_es, width = 10, height = 10, units = 'cm')
-
-fig_post <- mcmc_hist(draw, pars = c('mu', 'sigma'))
-# ggsave("images/protein_post.png", plot = fig_post, width = 20, height = 10, units = 'cm')
+mcmc_trace(samples, pars = c('mu', 'sigma'))
+mcmc_hist(samples, pars = c('mu', 'sigma'))
 
 # Calculate HDI
 posterior_mu <- rstan::extract(fit, pars = 'mu')$mu
@@ -94,7 +78,6 @@ fig_post_mu <- ggplot(data.frame(mu = posterior_mu), aes(x = mu, y = after_stat(
   annotate('text', x = hdi_mu[2], y = 1, label = round(hdi_mu[2], 1)) +
   theme_minimal()
 
-# ggsave("images/protein_post_mu.svg", plot = fig_post_mu, width = 10, height = 10, units = 'cm')
 
 # Effect size
 posterior_es <- rstan::extract(fit, pars = 'es')$es
@@ -110,5 +93,4 @@ fig_post_es <- ggplot(data.frame(es = posterior_es), aes(x = es, y = after_stat(
   annotate('text', x = 0.22, y = 0.5, label = 0.2, color = 'red') +
   labs(x = 'Effect size') +
   theme_minimal()
-fig_post_es
-ggsave("images/protein_post_es.svg", plot = fig_post_es, width = 10, height = 10, units = 'cm')
+
