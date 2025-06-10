@@ -6,9 +6,9 @@ library(tidyr)
 
 set.seed(2025)
 data <- data.frame(protein = rnorm(50, 20, 1))
-write.csv(data, "envergy_bar.csv", row.names = FALSE)
+write.csv(data, "energy_bar.csv", row.names = FALSE)
 
-data <- read.csv("envergy_bar.csv")
+data <- read.csv("energy_bar.csv")
 fig_hist <- ggplot(data, aes(x=protein)) +
   geom_histogram(bins = 13) +
   theme_minimal()
