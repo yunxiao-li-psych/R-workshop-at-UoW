@@ -1,6 +1,6 @@
 # Read me
 
-This repository is for the R workshop at the University of Warwick on 13th June 2025. It consists of two topics: the basic operation of R and doing Bayesian inference in R and Stan. To get started, simply click the green “Code” button in the top-right corner and select "Download ZIP" to download everything you need.
+This repository is for the R workshop at the University of Warwick on 13th June 2025. It consists of three topics: the basic operation of R, data visualization and inferential Statistics, and doing Bayesian estimation and inference in R and Stan. To get started, simply click the green “Code” button in the top-right corner and select "Download ZIP" to download everything you need.
 
 ## Basic Operation of R
 This section introduces the basic functionality of R, preparing you for data visualization, analysis, and more advanced statistical tasks.
