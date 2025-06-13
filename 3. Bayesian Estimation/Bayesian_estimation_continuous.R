@@ -24,8 +24,8 @@ coin <- stan_model('coin.stan')
 
 obs <- c(1, 0, 1, 1, 0, 1)
 
-data_list <- list(y = obs,
-                  N = length(obs))
+data_list <- list(N = length(obs),
+                  obs = obs)
 
 fit <- sampling(coin,
                 data=data_list,
@@ -63,7 +63,7 @@ obs_new <- sample(c(0, 1), size = 50, replace = TRUE, prob = c(0.2, 0.8))
 # complete the .stan file
 coin <- cmdstan_model(stan_file = 'coin.stan')
 
-data_list <-
+data_list <- 
 
-fit <- 
+fit <- sampling()
 

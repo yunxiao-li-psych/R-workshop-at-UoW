@@ -12,7 +12,6 @@ fig_hist <- ggplot(data, aes(x=protein)) +
   theme_minimal()
 
 
-
 # Frequentist t-test --------
 t_value <- (mean(data$protein) - 20) / (sd(data$protein)/sqrt(length(data$protein)))
 
@@ -35,7 +34,7 @@ fig_t <- data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 
 
 # Decompose the p-value --------
 
-population <- rnorm(100000, mean = 20, sd = sd(data$protein)) # if the null hypothesis is true
+population <- rnorm(100000, mean = 20, sd = 1) # if the null hypothesis is true
 
 # repeatedly draw 50 samples from the population
 t_value <- vector(mode = 'numeric', length = 1000)
@@ -55,8 +54,9 @@ fig_sample <- data.frame(t = t_value) %>%
 # Bayesian estimation --------
 
 protein_model <- stan_model('protein.stan')
+
 data_list <- list(N = length(data$protein),
-                  y = data$protein)
+                  obs = data$protein)
 
 fit <- sampling(protein_model, data = data_list,
                 chains = 4, iter = 4000, warmup = 2000, cores = 4)
