@@ -1,12 +1,7 @@
 library(ggplot2)
 
 likelihood_func <- function(theta, obs){
-  if (!all(obs %in% c(0, 1))){
-    stop("`obs` should only involve 0 and 1.")
-  }
   
-  n <- length(obs)
-  return(theta**sum(obs) * (1-theta)**(n-sum(obs)))
 }
 
 obs <- c(1, 0, 1, 1, 0, 1)
