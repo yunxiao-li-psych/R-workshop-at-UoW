@@ -12,8 +12,6 @@ fig_beta <- data.frame(theta = seq(0, 1, by=0.01), prior = dbeta(seq(0, 1, by=0.
   geom_area(alpha = 0.5) +
   xlab(expression(theta)) +
   theme_minimal()
-fig_beta
-
 
 
 # Hello world for Stan ---------
@@ -53,15 +51,10 @@ samples <- as.array(fit)
 #   theme_minimal()
 
 
-fig_trace <- mcmc_trace(samples, pars = 'theta') +
-  ylab(expression(theta)) +
-  scale_y_continuous(breaks =seq(0, 1, by = 0.1))
+fig_trace <- mcmc_trace(samples, pars = 'theta')
 
-fig_hist <- mcmc_hist(samples, pars = 'theta') +
-  xlab(expression(theta)) +
-  coord_flip()
+fig_hist <- mcmc_hist(samples, pars = 'theta')
 
-fig_chain <- plot_grid(fig_trace, fig_hist, ncol = 2)
 
 # ..... Practice ......
 

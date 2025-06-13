@@ -10,11 +10,15 @@ data <- read.csv("energy_bar.csv")
 fig_hist <- ggplot(data, aes(x=protein)) +
   geom_histogram(bins = 13) +
   theme_minimal()
-fig_hist
+
 
 
 # Frequentist t-test --------
 t_value <- (mean(data$protein) - 20) / (sd(data$protein)/sqrt(length(data$protein)))
+
+p_value <- pt(-1 * t_value, df = 49) + pt(t_value, df = 49, lower.tail = FALSE)
+
+t.test(data$protein, mu = 20)
 
 # Plot the student t distribution
 fig_t <- data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 49)) %>%
@@ -26,11 +30,8 @@ fig_t <- data.frame(x = seq(-3, 3, by =0.01), y = dt(seq(-3, 3, by =0.01), df = 
             alpha = 0.4) +
   geom_area(data = data.frame(x = seq(t_value, 3, by =0.01), y = dt(seq(t_value, 3, by =0.01), df = 49)),
             alpha = 0.4) +
+  labs(x = "Student t distribution", y = NULL) +
   theme_minimal()
-
-p_value <- pt(-1 * t_value, df = 49) + pt(t_value, df = 49, lower.tail = FALSE)
-
-t.test(data$protein, mu = 20)
 
 # Decompose the p-value --------
 

@@ -5,6 +5,7 @@ likelihood_func <- function(theta, obs){
 }
 
 obs <- c(1, 0, 1, 1, 0, 1)
+
 likelihood_func(0.5, obs)
 
 # Discrete Prior 1 ----------
@@ -33,8 +34,6 @@ fig_posteror <- ggplot(df_bs, aes(x=theta, y=posterior)) +
   xlab(expression(theta)) +
   theme_minimal()
 
-# ggsave('images/discrete_coin_posterior.png', plot = fig_posteror, width = 10, height =10, units = 'cm')
-
 # Discrete Prior 2 ----------
 df_bs2 <- data.frame(theta = seq(0, 1, by = 0.1), prior = seq(1.8, 0.2, by = -0.16)/11)
 
@@ -43,8 +42,6 @@ fig_prior <- ggplot(df_bs2, aes(x=theta, y=prior)) +
   scale_x_continuous(breaks = seq(0, 1, by = 0.1)) +
   xlab(expression(theta)) +
   theme_minimal()
-
-# ggsave('images/discrete_coin_prior2.png', plot = fig_prior, width = 10, height =10, units = 'cm')
 
 # ..... Practice ......
 df_bs2$likelihood <-
@@ -62,5 +59,3 @@ fig_posteror <- ggplot(df_bs2, aes(x=theta, y=posterior)) +
   scale_x_continuous(breaks =seq(0, 1, by = 0.1)) +
   xlab(expression(theta)) +
   theme_minimal()
-
-# ggsave('images/discrete_coin_posterior2.png', plot = fig_posteror, width = 10, height =10, units = 'cm')
