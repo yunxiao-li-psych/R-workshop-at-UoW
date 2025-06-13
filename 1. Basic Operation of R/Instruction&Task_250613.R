@@ -157,7 +157,7 @@ physical_male_long <- gather(physical_male, key = 'Dimension', value = 'Measurem
 View(physical_male_long)
 
 physical_male_wide <- spread(physical_male_long, key = 'Dimension', value = 'Measurement')
-View(Physical_male_wide)
+View(physical_male_wide)
 
 ## 3.5 Export the dataset as a CSV file
 write.csv(physical_male_long, "physical_male_long.csv",row.names = FALSE) ## prevents writing row numbers as a separate column (optional but common)
